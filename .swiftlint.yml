@@ -370,6 +370,7 @@ identifier_name:
     - ok
     - or
     - p8
+    - on
 
 large_tuple: # Tuples shouldn't have too many members. Create a custom type instead.
   - 2 # warning - default: 2

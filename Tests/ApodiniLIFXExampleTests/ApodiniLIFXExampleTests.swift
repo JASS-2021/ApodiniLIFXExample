@@ -1,8 +1,7 @@
-@testable import WebService
 import XCTest
 
 
-final class ApodiniTemplateTests: XCTestCase {
+final class ApodiniLIFXExampleTests: XCTestCase {
     func testExample() {
         XCTAssertTrue(true)
     }

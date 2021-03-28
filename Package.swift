@@ -4,31 +4,41 @@ import PackageDescription
 
 
 let package = Package(
-    name: "ApodiniTemplate",
+    name: "ApodiniLIFXExample",
     platforms: [
         .macOS(.v10_15)
     ],
     products: [
         .executable(
-            name: "WebService",
-            targets: ["WebService"]
+            name: "ApodiniLIFXExample",
+            targets: ["ApodiniLIFXExample"]
         )
     ],
     dependencies: [
-        .package(url: "https://github.com/Apodini/Apodini.git", .branch("develop"))
+        .package(name: "Apodini", url: "https://github.com/Apodini/Apodini.git", .branch("develop")),
+        .package(name: "swift-nio-lifx", url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git", from: "0.1.1")
     ],
     targets: [
         .target(
-            name: "WebService",
+            name: "ApodiniLIFXExample",
             dependencies: [
                 .product(name: "Apodini", package: "Apodini"),
+                .product(name: "ApodiniJobs", package: "Apodini"),
                 .product(name: "ApodiniREST", package: "Apodini"),
-                .product(name: "ApodiniOpenAPI", package: "Apodini")
+                .product(name: "ApodiniOpenAPI", package: "Apodini"),
+                .target(name: "ApodiniLIFX")
+            ]
+        ),
+        .target(
+            name: "ApodiniLIFX",
+            dependencies: [
+                .product(name: "Apodini", package: "Apodini"),
+                .product(name: "NIOLIFX", package: "swift-nio-lifx")
             ]
         ),
         .testTarget(
-            name: "WebServiceTests",
-            dependencies: ["WebService"]
+            name: "ApodiniLIFXExampleTests",
+            dependencies: ["ApodiniLIFXExample"]
         )
     ]
 )
