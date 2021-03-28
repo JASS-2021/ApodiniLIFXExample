@@ -1,6 +1,6 @@
-# Apodini Template Repository
+# Apodini LIFX Example
 
-This repository includes an example Apodini web service that can be used as a starting point for an Apodini web service.  
+This repository includes an example Apodini web service that can be used to control LIFX smart lights using [NIO LIFX](https://github.com/PSchmiedmayer/Swift-NIO-LIFX).  
 
 ## Build an Apodini Web Service
 
@@ -21,44 +21,22 @@ If you are not using macOS or don't want to use Xcode, you can use [Visual Studi
 
 ## Structure
 
-The web service exposes a RESTful web API and an OpenAPI description:  
-```swift
-struct ExampleWebService: WebService {
-    var configuration: Configuration {
-        ExporterConfiguration()
-            .exporter(RESTInterfaceExporter.self)
-            .exporter(OpenAPIInterfaceExporter.self)
-    }
+The web service exposes a RESTful web API and an OpenAPI description.  
 
-    var content: some Component {
-        Greeter()
-    }
-}
-```
+It includes `Handler`s to 
+- Send out discovery messages (`DiscoverDevices`)
+- Get all devices that are currently discovered (`GetAllDevices`)
+- Change the power level of a device (`ChangeDeviceState`).
 
-The example web service exposes a single `Handler` named `Greeter`:  
-```swift
-struct Greeter: Handler {
-    @Parameter var name: String = "World"
-    
-    
-    func handle() -> String {
-        "Hello, \(name)! 👋"
-    }
-}
-```
+In addition the Apodini web service includes a `Job` that is triggered every minute to discover new devices on the network (`DiscoveryJob`).
 
 ## RESTful API
 
-You can access the `Greeter` `Handler` at `http://localhost:8080/v1`.  
-The `@Parameter` is exposed as a parameter in the URL. E.g., you can send a request to `localhost:8080/v1?name=Paul` to get the following response:  
+- You can access the `DiscoverDevices` `Handler` at `http://localhost:8080/v1/discover` using a `POST` request.  
+- You can access the `GetAllDevices` `Handler` at `http://localhost:8080/v1/devices` using a `GET` request.  
+- You can access the `ChangeDeviceState` `Handler` at `http://localhost:8080/v1/devices/DEVICE_NAME` using a `PUT` request. The `DEVICE_NAME` in the path indicates the device's name you try to address. The `PUT` request must include the new state in the new state in the HTTP Body, e.g.:
 ```json
-{
-  "data" : "Hello, Paul! 👋",
-  "_links" : {
-    "self" : "http://127.0.0.1:8080/v1"
-  }
-}
+"on"
 ```
 
 ## OpenAPI
