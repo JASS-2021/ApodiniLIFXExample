@@ -7,7 +7,7 @@
     ],
     "appPort": [
         8080,
-        56700
+        "56700:56700/udp"
     ],
     "extensions": [
         "pvasek.sourcekit-lsp--dev-unofficial",

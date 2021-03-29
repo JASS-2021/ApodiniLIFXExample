@@ -24,7 +24,7 @@ struct ExampleWebService: WebService {
             DiscoverDevices()
                 .operation(.create)
         }
-        DevicesComponent()
+        DevicesComponents()
     }
 }
 

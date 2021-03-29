@@ -15,8 +15,16 @@ let package = Package(
         )
     ],
     dependencies: [
-        .package(name: "Apodini", url: "https://github.com/Apodini/Apodini.git", .branch("develop")),
-        .package(name: "swift-nio-lifx", url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git", from: "0.1.1")
+        .package(
+            name: "Apodini",
+            url: "https://github.com/Apodini/Apodini.git",
+            .branch("develop")
+        ),
+        .package(
+            name: "swift-nio-lifx",
+            url: "https://github.com/PSchmiedmayer/Swift-NIO-LIFX.git",
+            from: "0.1.1"
+        )
     ],
     targets: [
         .target(

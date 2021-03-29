@@ -20,7 +20,9 @@ struct ChangeDeviceState: Handler {
     
     func handle() throws -> EventLoopFuture<Device> {
         guard let device = lifxDeviceManager.device(withName: name) else {
-            throw deviceNotFoundError.callAsFunction(reason: "No device with the name \"\(name)\" was found")
+            throw deviceNotFoundError(
+                reason: "No device with the name \"\(name)\" was found"
+            )
         }
         
         return device.set(powerLevel: state.powerLevel)
